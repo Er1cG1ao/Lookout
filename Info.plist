@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+    <key>CFBundleName</key><string>Lookout</string>
+    <key>CFBundleDisplayName</key><string>Lookout</string>
+    <key>CFBundleIdentifier</key><string>local.giao.lookout</string>
+    <key>CFBundleExecutable</key><string>Lookout</string>
+    <key>CFBundleIconFile</key><string>Lookout</string>
+    <key>CFBundlePackageType</key><string>APPL</string>
+    <key>CFBundleShortVersionString</key><string>0.1.1</string>
+    <key>CFBundleVersion</key><string>2</string>
+    <key>LSMinimumSystemVersion</key><string>14.0</string>
+    <key>LSUIElement</key><true/>
+    <key>NSCameraUsageDescription</key><string>Lookout 在本机分析人脸朝向，在转头或离座后模糊屏幕。不录制、不上传画面。</string>
+    <key>NSHighResolutionCapable</key><true/>
+    <key>NSHumanReadableCopyright</key><string>Lookout prototype, 2026. See source acknowledgements.</string>
+</dict></plist>

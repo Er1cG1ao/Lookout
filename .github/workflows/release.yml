@@ -1,0 +1,37 @@
+name: Release installers
+on:
+  release:
+    types: [published]
+permissions:
+  contents: write
+jobs:
+  package:
+    runs-on: macos-15
+    timeout-minutes: 20
+    env:
+      RELEASE_TAG: ${{ github.event.release.tag_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: Check release version
+        run: |
+          version=$(python3 -c 'import plistlib; print(plistlib.load(open("Info.plist", "rb"))["CFBundleShortVersionString"])')
+          test "$RELEASE_TAG" = "v$version"
+      - name: Offline policy tests
+        run: bash test.sh
+      - name: Build native app
+        run: bash build.sh
+      - name: Package installers
+        run: |
+          bash package.sh dist
+          bash package-dmg.sh dist
+      - name: Checksums
+        run: |
+          cd dist
+          shasum -a 256 Lookout-*-mac-arm64.dmg Lookout-*-mac-arm64.zip > "SHA256SUMS-${RELEASE_TAG#v}.txt"
+          shasum -a 256 -c "SHA256SUMS-${RELEASE_TAG#v}.txt"
+      - name: Attach installers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$RELEASE_TAG" dist/*.dmg dist/*.zip dist/SHA256SUMS-*.txt --repo "$GITHUB_REPOSITORY" --clobber

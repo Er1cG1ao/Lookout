@@ -1,0 +1,19 @@
+name: Build and test
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Offline policy tests
+        run: bash test.sh
+      - name: Build native app
+        run: bash build.sh
+      - name: Package ZIP
+        run: bash package.sh dist
