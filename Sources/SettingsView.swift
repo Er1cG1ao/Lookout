@@ -262,7 +262,7 @@ struct AngleDial: View {
                 let dx = gesture.location.x - center.x
                 let dy = gesture.location.y - center.y
                 guard hypot(dx, dy) > 15 else { return }
-                var angle = atan2(dy, dx) * 180 / .pi - zeroDirection
+                var angle = atan2(Double(dy), Double(dx)) * 180 / Double.pi - zeroDirection
                 if angle > 180 { angle -= 360 }
                 value = min(90, max(-90, angle)).rounded()
             })
